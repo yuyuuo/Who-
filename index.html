@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جيمي هيبوس مين</title>
+    <title>جيمي هيبوس مين بس</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #282c36;
+            background-color: black;
             color: white;
             text-align: center;
             display: flex;
@@ -18,10 +18,12 @@
             margin: 0;
         }
         .container {
-            background: #1e90ff;
+            background: white;
+            color: black;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+            display: none;
         }
         h1 {
             font-size: 24px;
@@ -30,9 +32,9 @@
             margin-top: 20px;
         }
         button {
-            background: #ff4757;
+            background: black;
             color: white;
-            border: none;
+            border: 2px solid white;
             padding: 10px 20px;
             margin: 10px;
             font-size: 18px;
@@ -41,44 +43,65 @@
             transition: 0.3s;
         }
         button:hover {
-            background: #e84118;
+            background: white;
+            color: black;
         }
         .result {
             margin-top: 20px;
             font-size: 20px;
             font-weight: bold;
             display: none;
-            background: #ff6348;
+            background: black;
+            color: white;
             padding: 15px;
             border-radius: 5px;
-            animation: fadeIn 0.5s ease-in-out;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+        .start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     </style>
 </head>
 <body>
 
+    <div class="start-screen">
+        <button onclick="startGame()">العب</button>
+    </div>
+
     <div class="container">
-        <h1>سؤال: جيمي هيبوس مين؟</h1>
+        <h1>جيمي هيبوس مين؟</h1>
         <div class="buttons">
-            <button onclick="showResult('روضة')">روضة</button>
             <button onclick="showResult('نوح')">نوح</button>
+            <button onclick="showResult('روضة')">روضة</button>
         </div>
         <div id="result" class="result"></div>
     </div>
 
     <script>
+        function startGame() {
+            document.querySelector('.start-screen').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+        }
+
         function showResult(answer) {
             let result = document.getElementById("result");
-            if (answer === "روضة") {
-                result.innerHTML = "❌ لا، جيمي غير رأيه وهيبوس روضة!";
+            if (answer === "نوح") {
+                result.innerHTML = "✅ اختيار صحيح! لكنك خسرت على أي حال";
             } else {
                 result.innerHTML = "❌ لا، جيمي هيبوس نوح!";
             }
             result.style.display = "block";
+
+            setTimeout(() => {
+                result.innerHTML += '<br><button onclick="restartGame()">حاول مرة أخرى</button>';
+            }, 1000);
+        }
+
+        function restartGame() {
+            document.getElementById("result").style.display = "none";
+            document.querySelector('.container').style.display = 'none';
+            document.querySelector('.start-screen').style.display = 'flex';
         }
     </script>
 
